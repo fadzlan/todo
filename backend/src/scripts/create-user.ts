@@ -8,20 +8,18 @@ import { User } from '../app/entities';
 export const schema = {
   additionalProperties: false,
   properties: {
-    // email: { type: 'string', format: 'email' },
-    // password: { type: 'string' },
+    name: { type: 'string' }
   },
-  required: [ /* 'email', 'password' */ ],
+  required: [ 'name' ],
   type: 'object',
 };
 
-export async function main(/*args*/) {
+export async function main(args: { name: string}) {
   const connection = await createConnection();
 
   try {
     const user = new User();
-    // user.email = args.email;
-    // user.password = await hashPassword(args.password);
+    user.name = args.name;
 
     console.log(await user.save());
   } catch (error) {
