@@ -1,5 +1,5 @@
 import { ApiInfo, ApiServer, Context, controller, Get, HttpResponseOK } from '@foal/core';
-import { TasksController } from './api';
+import { TasksController, UsersController } from './api';
 
 @ApiInfo({
   title: 'Application API',
@@ -10,7 +10,8 @@ import { TasksController } from './api';
 })
 export class ApiController {
   subControllers = [
-    controller('/tasks', TasksController)
+    controller('/tasks', TasksController),
+    controller('/users', UsersController)
   ];
 
 

@@ -24,7 +24,7 @@ export async function main(args: {author: number, name: string}) {
 
     console.log(await task.save());
   } catch (error) {
-    console.error(error);
+    // console.error(error);
   } finally {
     await connection.close();
   }
