@@ -1,18 +1,23 @@
 import React from 'react';
-
-import { Header } from './Header';
+import { Container } from 'react-bootstrap';
+import { Header } from '../components/panel/header';
 
 export default {
-  title: 'Example/Header',
+  title: 'Layout/Header',
   component: Header,
 };
 
-const Template = (args) => <Header {...args} />;
-
-export const LoggedIn = Template.bind({});
-LoggedIn.args = {
-  user: {},
+const Template = (args) => {
+  return <>
+    <Container>
+      <Header {...args} />
+    </Container>
+  </>;
 };
 
-export const LoggedOut = Template.bind({});
-LoggedOut.args = {};
+export const BasicHeader = Template.bind({});
+BasicHeader.args = {
+  logoutClick: function() {
+    console.log("clicked logout")
+  }
+};
