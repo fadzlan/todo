@@ -56,11 +56,20 @@ export const Layout = (props) => {
         });
     });
   };
+
+  const onSearchClick = (searchText) => {
+    fetch(`/api/tasks/?authorId=${props.loggedInUser.id}&name=${searchText}`)
+      .then(response => response.json())
+      .then(data => {
+        props.setTasks(data);
+    });
+
+  }
   
   return <Container>
     <Row><Header logoutClick={() => props.setLoggedInUser(null)}/></Row>
     {props.tasks && props.tasks.length > 0 && !newTasksState? 
-      <Row><Col><TaskSearchList tasks={props.tasks} onClickNewTask={onClickNewTask} toggleCompleted={toggleCompleted}/></Col></Row> 
+      <Row><Col><TaskSearchList tasks={props.tasks} onClickNewTask={onClickNewTask} toggleCompleted={toggleCompleted} onSearchClick={onSearchClick}/></Col></Row> 
       : 
       <Row><NewTask createNewTask={createNewTask}/></Row>
     }

@@ -28,6 +28,12 @@ export const TaskSearchList = (props) => {
     if(props.toggleCompleted) await props.toggleCompleted(position, tasks[position]);
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      props.onSearchClick(searchText?.target?.value);
+    }
+  }
+
   return <div>
     <Row>
       <Col md={5} xs={12} className="text-start"><h5>Tasks</h5></Col>
@@ -39,6 +45,7 @@ export const TaskSearchList = (props) => {
             aria-describedby="searchInput"
             name="searchText"
             onChange={setSearchText}
+            onKeyDown={handleKeyDown}
           />
           <Button id="searchInput" variant="light" onClick={() => {
             props.onSearchClick(searchText?.target?.value)
