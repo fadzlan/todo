@@ -47,13 +47,14 @@ export const TaskSearchList = (props) => {
           </Button>
         </InputGroup>
       </Col>
-      <Col className="justify-content-right" md={2} xs={3}>
+      <Col className="float-end" md={2} xs={3}>
         <Button variant="primary" onClick={props.onClickNewTask}>
           + New Task
         </Button>
       </Col>
     </Row>
     <Row>
+      <Col>
       <Form>
         <ListGroup>
           {tasks?.map((item, index) => {
@@ -67,6 +68,7 @@ export const TaskSearchList = (props) => {
           })}
         </ListGroup>
       </Form>
+      </Col>
     </Row>
   </div>
 };
