@@ -6,8 +6,10 @@ export class TasksController {
 
   @Get('/')
   @ValidateQueryParam('authorId', {type: 'number'}, {required: false})
+  @ValidateQueryParam('name', {type: 'string'}, {required: false})
   async listTasks(ctx: Context) {
     const authorId = ctx.request.query.authorId as number|undefined;
+    const name = ctx.request.query.name as string|undefined;
 
     let queryBuilder = Task.createQueryBuilder('task').leftJoinAndSelect('task.author', 'author').select([
       'task.id',
@@ -18,7 +20,10 @@ export class TasksController {
     ]);
 
     if(authorId !== undefined) {
-      queryBuilder = queryBuilder.where('author.id = :authorId', { authorId });
+      queryBuilder = queryBuilder.andWhere('author.id = :authorId', { authorId });
+    }
+    if(name !== undefined) {
+      queryBuilder.andWhere(`task.name like :name`, {name: `%${name}%`});
     }
 
     const tasks = await queryBuilder.getMany();
