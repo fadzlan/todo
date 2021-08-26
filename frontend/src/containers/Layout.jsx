@@ -16,9 +16,7 @@ export const Layout = (props) => {
     setNewTaskState(true);
   };
 
-  const createNewTask = ({taskName}) => {
-    console.log(`taskName`);
-    console.log(taskName);
+  const createNewTask = (taskName) => {
     fetch(`/api/tasks/`, {
       method: 'POST',
       headers: {
@@ -38,11 +36,31 @@ export const Layout = (props) => {
         });
     });
   };
+
+  const toggleCompleted = (position, task) => {
+    fetch(`/api/tasks/${task.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        completed: task.completed
+      })
+    }).then(response => response.json())
+    .then(data => {
+      setNewTaskState(false);
+      fetch(`/api/tasks/?authorId=${props.loggedInUser.id}`)
+        .then(response => response.json())
+        .then(data => {
+          props.setTasks(data);
+        });
+    });
+  };
   
   return <Container>
     <Row><Header logoutClick={() => props.setLoggedInUser(null)}/></Row>
     {props.tasks && props.tasks.length > 0 && !newTasksState? 
-      <Row><Col><TaskSearchList tasks={props.tasks} onClickNewTask={onClickNewTask}/></Col></Row> 
+      <Row><Col><TaskSearchList tasks={props.tasks} onClickNewTask={onClickNewTask} toggleCompleted={toggleCompleted}/></Col></Row> 
       : 
       <Row><NewTask createNewTask={createNewTask}/></Row>
     }

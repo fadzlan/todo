@@ -13,7 +13,7 @@ export const NewTask = (props) => {
           <Form.Control type="text" name="taskName" placeholder="Task Name" onChange={setTaskName} />
         </Form.Group>
         <div className="d-grid gap-2">
-          <Button variant="primary" size="lg" onClick={() => {props.createNewTask({taskName: taskName?.target?.value})} }>+ New Task</Button>
+          <Button variant="primary" size="lg" onClick={() => {props.createNewTask(taskName?.target?.value)} }>+ New Task</Button>
         </div>
       </Form>
     </Card.Body>
