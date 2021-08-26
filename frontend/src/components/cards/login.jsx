@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'
 import { Form, Card, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
